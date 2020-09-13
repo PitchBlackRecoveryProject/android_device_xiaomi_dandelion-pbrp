@@ -1,0 +1,35 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      # Use this New Image for Starting things up
+      - image: fr3akyphantom/droid-runner:latest # DO Not Change
+    environment:
+      MANIFEST_BRANCH: 'android-10.0'
+      VERSION: '3.0.0'
+      MAINTAINER: '@PBRP team'
+      VENDOR: 'xiaomi'
+      CODENAME: 'lancelot'
+      BUILD_LUNCH: 'omni_lancelot-eng'
+      FLAVOR: "eng"
+      TEST_BUILD: 'true'
+      CHANGELOG: |
+         Initial Test Build
+    working_directory: /home/builder/
+    steps:
+      - setup_remote_docker:
+          version: 19.03.8
+      - run:
+          name: "ALL IN REMOTE"
+          command: |
+            curl -sL https://raw.githubusercontent.com/PitchBlackRecoveryProject/vendor_utils/Tess/remote_build.sh -o build.sh
+            source build.sh
+workflows:
+  version: 2
+  remote_builder:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: 'android-10.0'
+          context: org-global
