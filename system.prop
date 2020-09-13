@@ -1,0 +1,10 @@
+ro.secure=0
+ro.adb.secure=0
+ro.debuggable=1
+ro.sf.lcd_density=440
+persist.sys.isUsbOtgEnabled=true
+ro.sys.usb.mtp.whql.enable=0
+ro.sys.usb.storage.type=mtp
+ro.treble.enabled=true
+ro.mediatek.platform=MT6768
+ro.boot.dynamic_partitions=true
