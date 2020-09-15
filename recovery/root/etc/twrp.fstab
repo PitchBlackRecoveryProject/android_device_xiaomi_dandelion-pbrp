@@ -1,3 +1,6 @@
+system                  /system     ext4
+product                 /product     ext4
+vendor                  /vendor     ext4
 /proinfo		emmc	/dev/block/platform/bootdevice/by-name/proinfo		flags=display="proinfo";backup=1
 /nvram			emmc	/dev/block/platform/bootdevice/by-name/nvram		flags=display="nvram";backup=1;flashimg=1
 /protect_f		ext4	/dev/block/platform/bootdevice/by-name/protect1		flags=display="protect_f";backup=1
@@ -17,10 +20,8 @@
 /frp			emmc	/dev/block/platform/bootdevice/by-name/frp		flags=display="frp";backup=1
 /nvdata			ext4	/dev/block/platform/bootdevice/by-name/nvdata		flags=display="nvdata";backup=1
 /metadata		emmc	/dev/block/platform/bootdevice/by-name/metadata
-/system			ext4	/dev/block/platform/bootdevice/by-name/system		flags=display="System";backup=1;flashimg=1
-/system_image		emmc	/dev/block/platform/bootdevice/by-name/system
 /cache			ext4	/dev/block/platform/bootdevice/by-name/cache
-/data			ext4	/dev/block/platform/bootdevice/by-name/userdata		flags=encryptable=/dev/block/platform/bootdevice/by-name/metadata
+/data			ext4	/dev/block/platform/bootdevice/by-name/userdata		flags=fileencryption=aes-256-cts
 /hidden		ext4	/dev/block/platform/bootdevice/by-name/hidden   	flags=display="Hidden";backup=1
 
 /external_sd		auto	/dev/block/mmcblk1p1	/dev/block/mmcblk1		flags=display="External SDcard";storage;wipeingui;removable;backup=0

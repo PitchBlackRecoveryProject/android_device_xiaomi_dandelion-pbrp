@@ -18,6 +18,7 @@
 PRODUCT_RELEASE_NAME := lancelot
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
 # Inherit from our custom product configuration
 $(call inherit-product, vendor/pb/config/common.mk)

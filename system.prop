@@ -7,4 +7,5 @@ ro.sys.usb.mtp.whql.enable=0
 ro.sys.usb.storage.type=mtp
 ro.treble.enabled=true
 ro.mediatek.platform=MT6768
+ro.hardware=mt6768
 ro.boot.dynamic_partitions=true

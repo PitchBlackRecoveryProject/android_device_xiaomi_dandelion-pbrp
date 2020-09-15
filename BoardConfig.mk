@@ -91,7 +91,7 @@ BOARD_QTI_DYNAMIC_PARTITIONS_SIZE := 9126805504
 BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := product vendor system
 
 # System as root
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+#BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_SUPPRESS_SECURE_ERASE := true
 
 # File systems
@@ -108,7 +108,7 @@ TARGET_COPY_OUT_VENDOR := vendor
 
 # Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/recovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/etc/recovery.fstab
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_HAS_LARGE_FILESYSTEM := true
 
@@ -124,10 +124,10 @@ TW_BRIGHTNESS_PATH := "/sys/class/leds/lcd-backlight/brightness"
 TW_MAX_BRIGHTNESS := 2047
 TW_DEFAULT_BRIGHTNESS := 1200
 TW_SCREEN_BLANK_ON_BOOT := true
-TWRP_INCLUDE_LOGCAT := true
-TARGET_USES_LOGD := true
 TARGET_USES_MKE2FS := true
 TW_EXCLUDE_TWRPAPP := true
+#TW_RECOVERY_ADDITIONAL_RELINK_FILES += out/target/product/lancelot/system/lib64/libhidlmemeory.so
+#TARGET_RECOVERY_DEVICE_MODULES += libhidlmemeory
 
 # Hack: prevent anti rollback
 PLATFORM_SECURITY_PATCH := 2099-12-31
