@@ -15,6 +15,7 @@ jobs:
       TEST_BUILD: 'true'
       CHANGELOG: |
          Initial Test Build
+         Fix PIXEL issue
     working_directory: /home/builder/
     steps:
       - setup_remote_docker:
@@ -22,7 +23,7 @@ jobs:
       - run:
           name: "ALL IN REMOTE"
           command: |
-            curl -sL https://raw.githubusercontent.com/PitchBlackRecoveryProject/vendor_utils/Tess/remote_build.sh -o build.sh
+            curl -sL https://raw.githubusercontent.com/PitchBlackRecoveryProject/vendor_utils/pb/remote_build.sh -o build.sh
             source build.sh
 workflows:
   version: 2
