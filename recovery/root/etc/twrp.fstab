@@ -27,4 +27,6 @@ vendor                  /vendor     ext4
 /external_sd		auto	/dev/block/mmcblk1p1	/dev/block/mmcblk1		flags=display="External SDcard";storage;wipeingui;removable;backup=0
 /usbotg			auto    /dev/block/sda1		/dev/block/sda			flags=display="Usb-Otg";storage;removable;backup=0
 /dtbo emmc /dev/block/platform/bootdevice/by-name/dtbo flags=display="Dtbo";backup=1
-/vbmeta emmc /dev/block/platform/bootdevice/by-name/vbmeta flags=display="vbmeta";backup=1
+/vbmeta			emmc /dev/block/platform/bootdevice/by-name/vbmeta flags=display="Vbmeta";backup=1:flashimg=1
+/vbmeta_system		emmc /dev/block/platform/bootdevice/by-name/vbmeta_system	flags=display="Vbmeta System";backup=1:flashimg=1
+/vbmeta_vendor		emmc /dev/block/platform/bootdevice/by-name/vbmeta_vendor	flags=display="Vbmeta Vendor";backup=1:flashimg=1
