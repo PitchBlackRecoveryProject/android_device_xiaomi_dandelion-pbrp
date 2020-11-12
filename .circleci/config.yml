@@ -9,8 +9,8 @@ jobs:
       VERSION: '3.0.0'
       MAINTAINER: '@PBRP team'
       VENDOR: 'xiaomi'
-      CODENAME: 'lancelot'
-      BUILD_LUNCH: 'omni_lancelot-eng'
+      CODENAME: 'dandelion'
+      BUILD_LUNCH: 'omni_dandelion-eng'
       FLAVOR: "eng"
       TEST_BUILD: 'true'
       CHANGELOG: |
