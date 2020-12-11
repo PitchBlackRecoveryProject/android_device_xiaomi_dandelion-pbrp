@@ -1,36 +1,36 @@
 version: 2.1
+executors:
+  worker:
+    docker:
+      - image: fr3akyphantom/droid-builder:latest
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
 jobs:
   build:
-    docker:
-      # Use this New Image for Starting things up
-      - image: fr3akyphantom/droid-runner:latest # DO Not Change
+    executor: worker
     environment:
       MANIFEST_BRANCH: 'android-10.0'
-      VERSION: '3.0.0'
-      MAINTAINER: '@PBRP team'
       VENDOR: 'xiaomi'
       CODENAME: 'dandelion'
-      BUILD_LUNCH: 'omni_dandelion-eng'
-      FLAVOR: "eng"
+      FLAVOR: 'eng'
       TEST_BUILD: 'true'
+      MAINTAINER: 'PBRP Team'
       CHANGELOG: |
-         Initial Test Build
-         Fix PIXEL issue
-    working_directory: /home/builder/
+        - Test
+    working_directory: /home/builder/pitchblack
     steps:
-      - setup_remote_docker:
-          version: 19.03.8
       - run:
-          name: "ALL IN REMOTE"
+          name: AIO Build
           command: |
-            curl -sL https://raw.githubusercontent.com/PitchBlackRecoveryProject/vendor_utils/pb/remote_build.sh -o build.sh
+            wget -q https://raw.githubusercontent.com/PitchBlackRecoveryProject/vendor_utils/pb/build.sh
             source build.sh
 workflows:
-  version: 2
-  remote_builder:
+  version: 2.1
+  build_and_test:
     jobs:
       - build:
           filters:
             branches:
-              only: 'android-10.0'
+              only: 'test'
           context: org-global
