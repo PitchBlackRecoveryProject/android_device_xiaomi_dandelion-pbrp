@@ -1,26 +1,8 @@
 on early-init
     write /sys/module/musb_hdrc/parameters/kernel_init_done 1
 
-on property:hwservicemanager.ready=true
-    setprop sys.usb.config adb
-
-on boot
-    setprop sys.usb.configfs 1
-    setprop sys.usb.ffs.aio_compat 1
-    setprop vendor.usb.controller "musb-hdrc"
-    setprop vendor.usb.acm_cnt 0
-    setprop vendor.usb.acm_port0 ""
-    setprop vendor.usb.acm_port1 ""
-    setprop vendor.usb.acm_enable 0
-    setprop sys.usb.config adb
-
-on property:ro.boot.usbcontroller=*
-    setprop sys.usb.controller ${ro.boot.usbcontroller}
-
-on fs
+on init
     mkdir /config
-    mkdir /dev/usb-ffs 0770 shell shell
-    mkdir /dev/usb-ffs/adb 0770 shell shell
     mount configfs none /config
     mkdir /config/usb_gadget/g1 0770 shell shell
     mkdir /config/usb_gadget/g1/strings/0x409 0770 shell shell
@@ -42,6 +24,7 @@ on fs
     symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
     write /sys/class/android_usb/android0/f_ffs/aliases adb
+    setprop sys.usb.configfs 1
 
 on property:sys.usb.config=none
     write /config/usb_gadget/g1/UDC "none"
