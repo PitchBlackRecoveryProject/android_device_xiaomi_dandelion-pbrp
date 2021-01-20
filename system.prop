@@ -1,7 +1,7 @@
 ro.secure=0
 ro.adb.secure=0
 ro.debuggable=1
-ro.sf.lcd_density=440
+ro.sf.lcd_density=320
 persist.sys.isUsbOtgEnabled=true
 ro.sys.usb.mtp.whql.enable=0
 ro.sys.usb.storage.type=mtp
