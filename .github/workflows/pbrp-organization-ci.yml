@@ -1,0 +1,53 @@
+name: PBRP Organization CI
+on:
+  workflow_dispatch:
+    inputs:
+      DEPLOY_TYPE:
+        description: 'Deploy Type (TEST/BETA/OFFICIAL)'
+        required: true
+        default: 'TEST'
+      ChangeLogs:
+        description: 'Build ChangeLogs'
+        required: true
+        default: 'Sync Latest Source'
+  watch:
+    types: [started]
+
+env:
+  BUILD_RELEASE_TYPE: ${{ github.event.inputs.DEPLOY_TYPE }}
+  CHANGELOG: ${{ github.event.inputs.ChangeLogs }}
+  BOT_API: ${{ secrets.BOT_API }}
+  GCF_AUTH_KEY: ${{ secrets.GCF_AUTH_KEY }}
+  GH_BOT_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GitHubMail: ${{ secrets.GitHubMail }}
+  GitHubName: ${{ secrets.GitHubName }}
+  SFPassword: ${{ secrets.SFPassword }}
+  SFUserName: ${{ secrets.SFUserName }}
+  #TARGET: "define this if your target is not recoveryimage"
+
+jobs:
+  PBRP_CI:
+    if: "(! contains(toJSON(github.event.commits.*.message), '[skip-ci]'))"
+    runs-on: ubuntu-20.04
+
+    steps:
+       - name: Cleaning Up Runner
+         uses: rokibhasansagar/slimhub_actions@main
+
+       - name: Auto Adapt Manifest
+         run: echo "MANIFEST=https://github.com/PitchBlackRecoveryProject/manifest_pb -b ${GITHUB_REF##*/}" >> $GITHUB_ENV
+
+       - name: Export Vars
+         run: |
+              if [[ ${BUILD_RELEASE_TYPE} == "TEST" ]]; then echo "TEST_BUILD=true"  >> $GITHUB_ENV;fi
+              if [[ ${BUILD_RELEASE_TYPE} == "BETA" ]]; then echo "BETA_BUILD=true"  >> $GITHUB_ENV;fi
+              if [[ ${BUILD_RELEASE_TYPE} == "OFFICIAL" ]]; then echo "PB_OFFICIAL=true"  >> $GITHUB_ENV;fi
+
+       - name: Recovery Compilation
+         uses: Carbonatedblack/Recovery-Compiler@production
+       
+       - name: Release Builds 
+         run: |
+              sudo apt-get update && sudo apt-get install sshpass -y
+              cd $BuildPath 
+              bash vendor/utils/pb_deploy.sh ${BUILD_RELEASE_TYPE} ${VENDOR} ${CODENAME}
